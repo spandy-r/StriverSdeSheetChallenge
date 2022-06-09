@@ -1,0 +1,23 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int findMajority(int[] arr, int n) {
+		// Write your code here.
+        int cnt=0,ele=0;
+        int i=0;
+        while(i<n){
+        if(cnt==0){
+            ele=arr[i];
+        }
+        if(ele==arr[i]){
+            cnt++;
+        } else{
+            cnt--;
+        }
+            i++;
+    }
+    
+        return ele;
+        
+	}
+}
