@@ -1,19 +1,42 @@
 import java.util.* ;
 import java.io.*; 
 public class Solution {
-	public static int uniquePaths(int m, int n) {
-		// Write your code here.
-        int right=m-1;
-        int down=n-1;
-        int total=right+down;
-        return combination(total,down);
-	}
-    public static int combination(int n,int r){
-        double ans=1;
-        for(int i=1;i<=r;i++){
-            ans*=(n-r+i);
-            ans/=i;
+// 	public static int uniquePaths(int m, int n) {
+// 		// Write your code here.
+//         int right=m-1;
+//         int down=n-1;
+//         int total=right+down;
+// //         return combination(total,down);
+//         return combination(total,right);
+        
+// 	}
+//     public static int combination(int n,int r){
+//         double ans=1;
+//         for(int i=1;i<=r;i++){
+//             ans*=(n-r+i);
+//             ans/=i;
+//         }
+//         return (int)ans;
+//     }
+    
+    public static int uniquePaths(int m, int n) {
+        int dp[][]=new int[m][n];
+        for(int i[]:dp)
+        Arrays.fill(i,-1);
+       int cnt=helper(0,0,m,n,dp);
+        if(m==1 && n==1)
+            return cnt;
+        else
+            return dp[0][0];
+//        return cnt;
+    }
+    public static int helper(int i,int j,int m,int n,int[][]dp){
+        if(i==m-1 && j==n-1)return 1;
+        if(i>=m || j>=n)return 0;
+        
+        if(dp[i][j]!=-1)return dp[i][j];
+        else{
+            return dp[i][j]=helper(i+1,j,m,n,dp)+helper(i,j+1,m,n,dp);
         }
-        return (int)ans;
     }
 }
