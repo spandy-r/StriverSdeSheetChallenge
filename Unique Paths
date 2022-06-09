@@ -1,0 +1,19 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int uniquePaths(int m, int n) {
+		// Write your code here.
+        int right=m-1;
+        int down=n-1;
+        int total=right+down;
+        return combination(total,down);
+	}
+    public static int combination(int n,int r){
+        double ans=1;
+        for(int i=1;i<=r;i++){
+            ans*=(n-r+i);
+            ans/=i;
+        }
+        return (int)ans;
+    }
+}
