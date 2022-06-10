@@ -1,0 +1,50 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution{
+    public static int[][] pairSum(int[] arr, int s) {
+        // Write your code here.
+//         Arrays.sort(arr);
+//         ArrayList<ArrayList<Integer>>ans=new ArrayList<>();
+       
+//         HashMap<Integer,Integer> map=new HashMap<>();
+//         for(int i=0;i<arr.length;i++){
+//             if(map.containsKey(s-arr[i])){
+//                 ArrayList<Integer> arr1=new ArrayList<>();
+//                 arr1.add(s-arr[i]);
+//                 arr1.add(arr[i]);
+//                 Collections.sort(arr1);
+//                  ans.add(arr1);
+// //                 map.put(s-arr[i],map.get())
+//             }else{
+//                 map.put(arr[i],1);
+//             }
+           
+//         }
+//         int n=ans.size();
+//         int res[][]=new int[n][2];
+//         for(int i=0;i<n;i++){
+//             res[i][0]=ans.get(i).get(0);
+//             res[i][1]=ans.get(i).get(1);
+//         }
+//         return res;
+        Arrays.sort(arr);
+         ArrayList<ArrayList<Integer>>ans=new ArrayList<>();
+        for(int i=0;i<arr.length;i++){
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[i]+arr[j]==s){
+                     ArrayList<Integer> arr1=new ArrayList<>();
+                     arr1.add(arr[i]);
+                arr1.add(arr[j]);
+                    ans.add(arr1);
+                }
+            }
+        }
+        int n=ans.size();
+        int res[][]=new int[n][2];
+        for(int i=0;i<n;i++){
+            res[i][0]=ans.get(i).get(0);
+            res[i][1]=ans.get(i).get(1);
+        }
+        return res;
+    }
+}
