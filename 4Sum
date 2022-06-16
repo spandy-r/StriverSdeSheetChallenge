@@ -1,0 +1,36 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+  public static String fourSum(int[] arr, int target, int n) {
+      // Write your code here.
+      Arrays.sort(arr);
+      int i=0;
+     
+     
+      
+      while(i<arr.length){
+           int j=i+1;
+          while(j<arr.length-2){
+               int k=j+1;
+              int l=arr.length-1;
+              int rem=target-(arr[i]+arr[j]);
+              while(k<l){
+                  int sum=arr[k]+arr[l];
+                  if(sum<rem){
+                      k++;
+                  }else if(sum>rem){
+                      l--;
+                  }else{
+                      return "Yes";
+                  }
+              }
+              j++;
+              
+          }
+          i++;
+      }
+      return "No";
+  }
+}
+// -2 -1 1 1 12 20
+// t=20
