@@ -1,0 +1,24 @@
+import java.util.*;
+
+public class Solution
+{
+	public static int getMedian(ArrayList<ArrayList<Integer>> matrix)
+	{
+		// Write your code here.
+        ArrayList<Integer> arr=new ArrayList<>();
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<matrix.get(i).size();j++){
+                arr.add(matrix.get(i).get(j));
+            }
+        }
+        Collections.sort(arr);
+        int l=arr.size();
+        int median;
+//         if(l%2==0){
+//             median=(arr.get(l/2)+arr.get(l/2+1))/2;
+//         }else{
+            median=arr.get(l/2);
+//         }
+        return median;
+	}
+}
