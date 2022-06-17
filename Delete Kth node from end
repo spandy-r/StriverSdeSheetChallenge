@@ -1,0 +1,49 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+	
+	Following is the structure of the Singly Linked List.
+	
+	class LinkedListNode<T> {
+    	T data;
+    	LinkedListNode<T> next;
+
+    	public LinkedListNode(T data) {
+        	this.data = data;
+    	}
+	}
+
+****************************************************************/
+
+public class Solution {
+	public static LinkedListNode<Integer> removeKthNode(LinkedListNode<Integer> head, int k) {
+		// Write your code here.
+        if(head==null || k<=0)
+            return head;
+        
+        LinkedListNode<Integer> start=new LinkedListNode<>(null);
+        start.next=head;
+        LinkedListNode<Integer> fast=start;
+        LinkedListNode<Integer> slow=start;
+        int i=0;
+        while(i<k){
+           fast=fast.next; 
+            i++;
+        }
+        if(fast==null)
+            return start.next;
+        
+        while(fast.next!=null){
+           fast=fast.next;
+            slow=slow.next;
+        }
+         
+        
+      
+            
+       slow.next=slow.next.next;
+        
+       
+        return start.next;
+	}
+}
