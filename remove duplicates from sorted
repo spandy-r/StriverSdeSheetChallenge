@@ -1,0 +1,16 @@
+import java.util.*;
+public class Solution {
+	public static int removeDuplicates(ArrayList<Integer> arr,int n) {
+		// Write your code here.
+        if(n==1)return 1;
+        int c=1;
+        
+        for(int i=1;i<n;i++){
+            if(arr.get(i)==arr.get(i-1))
+                continue;
+            else
+                c++;
+        }
+        return c;
+	}
+}
