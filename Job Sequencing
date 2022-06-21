@@ -1,0 +1,49 @@
+import java.util.*;
+class Job{
+    int deadline;
+    int profit;
+    Job(int d,int p){
+        this.deadline=d;
+        this.profit=p;
+    }
+}
+class JobCompare implements Comparator<Job>{
+    public int compare(Job a,Job b){
+        return b.profit-a.profit;
+    }
+}
+public class Solution
+{
+    public static int jobScheduling(int[][] jobs)
+    {
+        // Write your code here
+        ArrayList<Job> job=new ArrayList<>();
+       int max=0;
+        for(int i=0;i<jobs.length;i++){
+            max=Math.max(jobs[i][0],max);
+            job.add(new Job(jobs[i][0],jobs[i][1]));
+        }
+        Collections.sort(job,new JobCompare());
+        int arr[]=new int[max+1];
+
+        Arrays.fill(arr,-1);
+        int maxP=0;
+        for(int i=0;i<job.size();i++){
+            int x=job.get(i).deadline;
+
+                while(arr[x]!=-1 && x>0){
+                    x--;
+                }
+            if(x==0)
+               continue;
+            arr[x]=job.get(i).profit;
+            maxP+=arr[x];
+               
+            }
+        
+        return maxP;
+        
+        
+        
+    }
+}
