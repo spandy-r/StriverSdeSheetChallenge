@@ -1,0 +1,48 @@
+/****************************************************************
+
+    Following is the class structure of the Pair class:
+
+        class Pair
+        {
+        	int weight;
+	        int value;
+	        Pair(int weight, int value)
+	        {
+		        this.weight = weight;
+		        this.value = value;
+	        }
+	        
+        }
+        
+*****************************************************************/
+import java.util.*;
+
+
+class wvCompare implements Comparator<Pair>{
+    public int compare(Pair a,Pair b){
+        double r1=((double)b.value/(double)b.weight);
+        double r2=((double)a.value/(double)a.weight);
+       return r1-r2>0?1:-1;
+    }
+}
+
+public class Solution {
+    public static double maximumValue(Pair[] items, int n, int w) {
+            // Write your code here.
+    	    // ITEMS contains {weight, value} pairs.
+        Arrays.sort(items,new wvCompare());
+        double maxV=0.0;
+        for(int i=0;i<items.length;i++){
+            if(w==0)break;
+            if(items[i].weight<=w){
+                maxV+=items[i].value;
+                w-=items[i].weight;
+            }else{
+                double fval=((double)w/(double)items[i].weight)*(double)items[i].value;
+                maxV+=fval;
+                w=0;
+            }
+        }
+        return maxV;
+    }
+}
