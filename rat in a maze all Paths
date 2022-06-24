@@ -1,0 +1,75 @@
+import java.util.*;
+public class Solution {
+    public static ArrayList<ArrayList<Integer>> ratInAMaze(int[][] maze, int n) {
+        // Write your code here.
+        int out[][]=new int[n][n];
+        ArrayList<ArrayList<Integer>> res=new ArrayList<>();
+        int visited[][]=new int[n][n];
+        if(maze[0][0]==1){
+            visited[0][0]=1;
+            out[0][0]=1;
+        solve(maze,0,0,res,out,visited,n);
+        }
+        return res;
+    }
+    
+    public static void solve(int[][]maze,int row,int col,ArrayList<ArrayList<Integer>>res,int[][]out,int visited[][],int n){
+        if(col==n-1 && row==n-1){
+            out[row][col]=1;
+            ArrayList<Integer> ans=new ArrayList<>();
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    ans.add(out[i][j]);
+                }
+            }
+            out[row][col]=0;
+            res.add(ans);
+            return;
+        }
+        if(col==n)
+            col=0;
+        
+         //down
+         if((row+1)<n && maze[row+1][col]==1 && visited[row+1][col]==0){
+            visited[row+1][col]=1;
+            out[row+1][col]=1;
+            solve(maze,row+1,col,res,out,visited,n);
+            visited[row+1][col]=0;
+            out[row+1][col]=0;
+         }
+        
+        
+         
+         //up
+        
+          if((row-1)>=0 && maze[row-1][col]==1 && visited[row-1][col]==0){
+            visited[row-1][col]=1;
+            out[row-1][col]=1;
+            solve(maze,row-1,col,res,out,visited,n);
+            visited[row-1][col]=0;
+            out[row-1][col]=0;
+        }
+       
+        
+        //left
+        if((col-1)>=0 && maze[row][col-1]==1 && visited[row][col-1]==0){
+            visited[row][col-1]=1;
+            out[row][col-1]=1;
+            solve(maze,row,col-1,res,out,visited,n);
+            visited[row][col-1]=0;
+            out[row][col-1]=0;
+        }
+        //right
+         if((col+1)<n && maze[row][col+1]==1 && visited[row][col+1]==0){
+            visited[row][col+1]=1;
+            out[row][col+1]=1;
+            solve(maze,row,col+1,res,out,visited,n);
+            visited[row][col+1]=0;
+            out[row][col+1]=0;
+        }
+       
+        
+       
+        
+    }
+}
