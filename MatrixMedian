@@ -1,24 +1,38 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Solution
 {
 	public static int getMedian(ArrayList<ArrayList<Integer>> matrix)
 	{
 		// Write your code here.
-        ArrayList<Integer> arr=new ArrayList<>();
-        for(int i=0;i<matrix.size();i++){
-            for(int j=0;j<matrix.get(i).size();j++){
-                arr.add(matrix.get(i).get(j));
+        int lo=1;
+        int hi=1000000000;
+        int n=matrix.size();
+        int m=matrix.get(0).size();
+        
+        while(lo<=hi){
+            int mid=(lo+hi)/2;
+            int cnt=0;
+            for(int i=0;i<n;i++){
+                cnt+=countSmallerThanMid(matrix.get(i),mid);
+            }
+            if(cnt<=((n*m)/2))
+                lo=mid+1;
+            else
+                hi=mid-1;
+        }
+        return lo;
+	}
+    public static int countSmallerThanMid(ArrayList<Integer> arr,int val){
+        int lo=0,hi=arr.size()-1;
+        while(lo<=hi){
+            int m=(lo+hi)/2;
+            if(arr.get(m)<=val){
+                lo=m+1;
+            }else{
+                hi=m-1;
             }
         }
-        Collections.sort(arr);
-        int l=arr.size();
-        int median;
-//         if(l%2==0){
-//             median=(arr.get(l/2)+arr.get(l/2+1))/2;
-//         }else{
-            median=arr.get(l/2);
-//         }
-        return median;
-	}
+        return lo;
+    }
 }
