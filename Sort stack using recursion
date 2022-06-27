@@ -1,0 +1,26 @@
+import java.util.*;
+public class Solution {
+
+	public static void sortStack(Stack<Integer> s) {
+		// Write your code here.
+        if(s.isEmpty() || s.size()==1)
+            return;
+        
+        int num=s.peek();
+        s.pop();
+        sortStack(s);
+        insert(num,s);
+	}
+    
+    public static void insert(int temp,Stack<Integer> s){
+        if(s.isEmpty() || temp>s.peek()){
+            s.push(temp);
+            return;
+        }
+        int t=s.peek();
+        s.pop();
+        insert(temp,s);
+        s.push(t);
+    }
+
+}
