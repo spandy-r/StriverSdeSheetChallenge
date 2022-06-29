@@ -1,0 +1,70 @@
+import java.util.*;
+class Cordinates{
+    int x,y;
+    Cordinates(int x,int y){
+        this.x=x;
+        this.y=y;
+    }
+}
+public class Solution {
+
+	public static int minTimeToRot(int[][] grid, int n, int m) {
+		// Write your code here.
+        Queue<Cordinates> q=new LinkedList<>();
+        int cnt=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==2){
+                 q.add(new Cordinates(i,j));
+                    cnt++;
+                }
+                if(grid[i][j]==1){
+                    cnt++;
+                }
+            }
+        }
+        cnt=cnt-q.size();
+        int time=0;
+        q.add(null);
+        
+        while(!q.isEmpty()){
+            Cordinates c=q.remove();
+            if(c==null && !q.isEmpty()){
+                q.add(null);
+                time++;
+            }else if(!q.isEmpty()){
+                int i=c.x;
+                int j=c.y;
+                if(i>0 && grid[i-1][j]==1){
+                    q.add(new Cordinates(i-1,j));
+                    grid[i-1][j]=2;
+                    cnt--;
+                    
+                }
+                if(i<n-1 && grid[i+1][j]==1){
+                    q.add(new Cordinates(i+1,j));
+                     grid[i+1][j]=2;
+                    cnt--;
+                }
+               if(j>0 && grid[i][j-1]==1){
+                    q.add(new Cordinates(i,j-1));
+                    grid[i][j-1]=2;
+                   cnt--;
+                }
+                if(j<m-1 && grid[i][j+1]==1){
+                    q.add(new Cordinates(i,j+1));
+                     grid[i][j+1]=2;
+                    cnt--;
+                }
+                
+            }
+        }
+        if(cnt==0)
+            return time;
+        else
+            return -1;
+        
+        
+	}
+
+}
