@@ -1,0 +1,40 @@
+import java.util.*;
+/*
+    
+    Following is the Binary Tree node structure:
+
+    public class TreeNode {
+        int data;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.data = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+           this.data = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+*/
+
+public class Solution {
+    public static List < Integer > getInOrderTraversal(TreeNode root) {
+    	// Write your code here.
+       
+       List<Integer> arr=new ArrayList<>();
+        
+        
+        helper(root,arr);
+        return arr;
+        
+    }
+    public static void helper(TreeNode root,List<Integer> arr){
+        if(root==null)return;
+        
+        helper(root.left,arr);
+        arr.add(root.data);
+        helper(root.right,arr);
+    }
+    
+}
