@@ -1,0 +1,61 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> 
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+import java.util.*;
+
+public class Solution 
+{
+    public static ArrayList<Integer> getLeftView(TreeNode<Integer> root) 
+    {
+        //    Write your code here.
+       
+//         ArrayList<Integer> arr=new ArrayList<>();
+//         Queue<TreeNode<Integer>> q=new LinkedList<>();
+//          if(root==null)return arr;
+//         arr.add(root.data);
+//         q.add(root);
+//         q.add(null);
+//         while(!q.isEmpty()){
+//             TreeNode<Integer> front=q.remove();
+//             if(front==null && !q.isEmpty()){
+//                 q.add(null);
+//                 arr.add(q.peek().data);
+//             }else if(front!=null){
+//                 if(front.left!=null)
+//                     q.add(front.left);
+//                 if(front.right!=null)
+//                     q.add(front.right);
+//             }
+//         }
+//         return arr;
+        ArrayList<Integer> arr=new ArrayList<>();
+      helper(root,0,arr);
+        return arr;
+    }
+    public static void helper(TreeNode<Integer> root,int level,ArrayList<Integer> arr){
+        if(root==null)
+            return;
+        if(level==arr.size())
+            arr.add(root.data);
+        helper(root.left,level+1,arr);
+        helper(root.right,level+1,arr);
+    }
+}
