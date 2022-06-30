@@ -1,0 +1,19 @@
+public class Solution 
+{
+	public static String reverseString(String str) 
+	{
+		//Write your code here
+        int i=0,n=str.length();
+        String ans="";
+        while(i<n){
+            while(i<n && str.charAt(i)==' ')i++;
+            
+            if(i==n)break;
+            int j=i+1;
+            while(j<n && str.charAt(j)!=' ')j++;
+            ans=" "+str.substring(i,j)+ans;
+            i=j+1;
+        }
+        return ans.substring(1);
+	}
+}
