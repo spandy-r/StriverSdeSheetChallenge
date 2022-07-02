@@ -1,0 +1,62 @@
+import java.util.*;
+/************************************************************
+
+	Following is the Binary Tree node structure:
+
+	class BinaryTreeNode<T> {
+	    T data;
+	    BinaryTreeNode<T> left;
+	    BinaryTreeNode<T> right;
+
+	    public BinaryTreeNode(T data) {
+	        this.data = data;
+	    }
+	}
+
+************************************************************/
+class Node{
+    int val;
+    BinaryTreeNode<Integer> node;
+    Node(BinaryTreeNode<Integer> node,int val){
+        this.node=node;
+        this.val=val;
+    }
+}
+public class Solution {
+    public static List<List<Integer>> getTreeTraversal(BinaryTreeNode<Integer> root) {
+        // Write your code here.
+        Stack<Node> s=new Stack<>();
+        List<List<Integer>> ans=new ArrayList<>();
+        List<Integer> pre=new ArrayList<>();
+        List<Integer> in=new ArrayList<>();
+         List<Integer> post=new ArrayList<>();
+        
+        if(root==null)return ans;
+        s.add(new Node(root,1));
+        while(!s.isEmpty()){
+            Node top=s.pop();
+            if(top.val==1){
+                pre.add(top.node.data);
+               top.val=2;
+                s.push(top);
+                if(top.node.left!=null){
+                    s.push(new Node(top.node.left,1));
+                }
+            }else if(top.val==2){
+                in.add(top.node.data);
+                top.val=3;
+                s.push(top);
+                if(top.node.right!=null){
+                    s.push(new Node(top.node.right,1));
+                }
+            }else{
+                post.add(top.node.data);
+            }
+        }
+         ans.add(in);
+        ans.add(pre);
+        ans.add(post);
+        
+        return ans;
+    }
+}
