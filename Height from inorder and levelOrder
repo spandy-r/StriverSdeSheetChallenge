@@ -1,0 +1,44 @@
+import java.util.*;
+class Node{
+    int height,left,right;
+    Node(int h,int l,int r){
+        height=h;
+        left=l;
+        right=r;
+    }
+}
+public class Solution {
+	public static int heightOfTheTree(int[] inorder, int[] levelOrder, int N){
+		// Write your code here.
+        Queue<Node> q=new LinkedList<>();
+        q.add(new Node(0,0,N-1));
+        int[]pos=new int[N+1];
+        for(int i=0;i<N;i++){
+            pos[inorder[i]]=i;
+        }
+        int maxH=0;
+        for(int i=0;i<N;i++){
+            int cur=levelOrder[i];
+            Node currNode=q.poll();
+            int currPos=pos[cur];
+            if(currPos>currNode.left){
+                q.add(new Node(currNode.height+1,currNode.left,currPos-1));
+                maxH=Math.max(maxH,currNode.height+1);
+            }
+            if(currPos<currNode.right){
+                 q.add(new Node(currNode.height+1,currPos+1,currNode.right));
+                maxH=Math.max(maxH,currNode.height+1);
+            }
+        }
+        return maxH;
+        
+        
+	}
+}
+/*
+inorder[0]=leftMost node
+inOrder[n-1]=rightMost node
+levelOrder[0]=root node
+levelOrder[n-1]=depth leaf node
+
+*/
