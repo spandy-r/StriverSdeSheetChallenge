@@ -1,0 +1,86 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode {
+	int val;
+	TreeNode left;
+	TreeNode right;
+
+	TreeNode(int val) {
+		this.val = val;
+		this.left = null;
+		this.right = null;
+	   }
+	}
+
+
+************************************************************/
+import java.util.*;
+// class Pair{
+//     int index;
+//     TreeNode node;
+//     Pair(TreeNode node,int index){
+//         this.node=node;
+//         this.index=index;
+//     }
+// }
+public class Solution {
+	public static int getMaxWidth(TreeNode root) {
+		// Write your code here.
+        Queue<TreeNode> q=new LinkedList<>();
+        if(root==null)
+            return 0;
+        q.add(root);
+        q.add(null);
+        int maxW=0,currW=0;
+        while(!q.isEmpty()){
+            TreeNode front=q.remove();
+            if(q.isEmpty())return maxW;
+            if(front==null){
+                currW=0;
+                q.add(null);
+            }else{
+                currW++;
+                if(front.left!=null)
+                    q.add(front.left);
+                if(front.right!=null)
+                    q.add(front.right);
+            }
+            maxW=Math.max(currW,maxW);
+        }
+        
+        return maxW;
+        
+        //Leetcode variant
+//           Queue<Pair> q=new LinkedList<>();
+//         if(root==null)
+//             return 0;
+//         q.add(new Pair(root,0));
+       
+//         int maxW=0;
+//         while(!q.isEmpty()){
+//             int size=q.size();
+//             int mmin=q.peek().index;
+//             int first=0,last=0;
+//             for(int i=0;i<size;i++){
+                
+//                 int curr_id=q.peek().index-mmin;
+//                 TreeNode front=q.remove().node;
+//                 if(i==0)first=curr_id;
+//                 if(i==size-1)last=curr_id;
+//                 int pos=curr_id;
+              
+//                 if(front.left!=null)
+//                     q.add(new Pair(front.left,2*pos+1));
+//                 if(front.right!=null)
+//                     q.add(new Pair(front.right,2*pos+2));
+//             }
+            
+//             maxW=Math.max(last-first+1,maxW);
+//         }
+        
+//         return maxW;
+        
+	}
+}
