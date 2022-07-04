@@ -1,0 +1,83 @@
+/************************************************************
+
+    Following is the Binary Tree node structure:
+    
+   class TreeNode {
+	    int data;
+	    TreeNode left;
+	    TreeNode right;
+
+	    TreeNode(int data) {
+		    this.data = data;
+		    this.left = null;
+		    this.right = null;
+	    }
+
+    }
+
+************************************************************/
+
+import java.util.*;
+
+public class Solution {
+	public static ArrayList<Integer> traverseBoundary(TreeNode root){
+		// Write your code here.
+        Queue<TreeNode> q=new LinkedList<>();
+        ArrayList<Integer> arr=new ArrayList<>();
+        if(root==null)return arr;
+        if(root.left!=null || root.right!=null)
+              q.add(root);
+        addLeftBoundary(root,q);
+        addLeaf(root,q);
+        addRightBoundary(root,q);
+       
+        while(!q.isEmpty()){
+            arr.add(q.poll().data);
+        }
+        
+        return arr;
+        
+	}
+    public static void addLeaf(TreeNode root,Queue<TreeNode>q){
+       if(isLeaf(root)){
+            q.add(root);
+            return;
+        }
+        
+        if(root.left!=null)addLeaf(root.left,q);
+        
+        
+        if(root.right!=null)addLeaf(root.right,q);
+    }
+    public static void addLeftBoundary(TreeNode root,Queue<TreeNode> q){
+       
+        TreeNode front=root.left;
+        while(front!=null){
+             if(!isLeaf(front))q.add(front);
+            if(front.left!=null){
+                front=front.left;
+            }else{
+                front=front.right;
+            }
+           
+        }
+    }
+    public static void addRightBoundary(TreeNode root,Queue<TreeNode> q){
+         Stack<TreeNode> s=new Stack<>();
+        TreeNode front=root.right;
+        while(front!=null){
+            if(!isLeaf(front)) s.push(front);
+            if(front.right!=null)
+                front=front.right;
+            else{
+                front=front.left;
+            }
+        }
+        while(!s.isEmpty()){
+            q.add(s.pop());
+        }
+    }
+    public static boolean isLeaf(TreeNode root){
+        return (root.left==null && root.right==null);
+    }
+}
