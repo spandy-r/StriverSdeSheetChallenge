@@ -1,0 +1,42 @@
+/************************************************************
+
+    Following is the Tree node structure
+	
+	class TreeNode {
+		int data;
+		TreeNode left;
+		TreeNode right;
+
+		TreeNode(int data) {
+			this.data = data;
+			this.left = null;
+			this.right = null;
+		}
+
+	}
+
+************************************************************/
+
+public class Solution {
+   static int count;
+	public static long findMaxSumPath(TreeNode root) {
+		// Write your code here.
+        long maxi[]=new long[1];
+        maxi[0]=Long.MIN_VALUE;
+        if(root==null)return -1;
+        count=0;
+        helper(root,maxi);
+        if(count<2)return -1;
+        return maxi[0];
+	}
+    private static long helper(TreeNode root,long[]maxi){
+        if(root==null)
+            return 0;
+        if(root.left==null && root.right==null)count++;
+        long lSum=helper(root.left,maxi);
+        long rSum=helper(root.right,maxi);
+       
+        maxi[0]=Math.max(maxi[0],lSum+rSum+(long)root.data);
+        return (long)(root.data)+Math.max(lSum,rSum);
+    }
+}
