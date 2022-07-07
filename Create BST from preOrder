@@ -1,0 +1,37 @@
+ 
+ 
+/*************************************************************
+	Following is the Binary Tree node structure
+	class TreeNode<T> {
+		public T data;
+		public TreeNode<T> left;
+		public TreeNode<T> right;
+
+		TreeNode(T data) {
+			this.data = data;
+			left = right = null;
+		}
+
+};************************************************************/
+public class Solution {
+ 
+	public static TreeNode<Integer> preOrderTree(int[] preOrder) {
+ 		// Write your code here
+        
+        return helper(preOrder,new int[]{0},Integer.MAX_VALUE);
+        //array is pass by reference
+        
+	}
+    public static TreeNode<Integer> helper(int[]preOrder,int i[],int ub){
+        if(i[0]==preOrder.length || preOrder[i[0]]>ub)return null;
+        TreeNode<Integer> root=new TreeNode<>(preOrder[i[0]++]);
+      
+            
+          root.left=helper(preOrder,i,root.data);
+       
+            root.right=helper(preOrder,i,ub);
+        
+        return root;
+    }
+
+}
