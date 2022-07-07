@@ -1,0 +1,50 @@
+/*
+    ----------------- Binary Tree node class for reference -----------------
+
+    class BinaryTreeNode<T> {
+	    public T data;
+	    public BinaryTreeNode<T> left;
+	    public BinaryTreeNode<T> right;
+	    public BinaryTreeNode<T> next;
+
+	    BinaryTreeNode(T data) {
+	        this.data = data;
+	        left = null;
+	        right = null;
+	        next = null;
+	    }
+	};
+
+*/
+import java.util.*;
+
+public class Solution {
+	public static void connectNodes(BinaryTreeNode<Integer> root) {
+    	// Write your code here.
+        if(root==null)return;
+        Queue<BinaryTreeNode<Integer>>q=new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        BinaryTreeNode<Integer> tail=null;
+        while(!q.isEmpty()){
+            BinaryTreeNode<Integer> front=q.remove();
+            
+            if(front==null){
+                tail.next=null;
+                if(q.isEmpty())return;
+                q.add(null);
+                tail=null;
+            }else{
+                if(tail==null)tail=front;
+                else{
+                    tail.next=front;
+                    tail=tail.next;
+                }
+                if(front.left!=null)
+                    q.add(front.left);
+                if(front.right!=null)
+                    q.add(front.right);
+            }
+        }
+	}
+}
