@@ -1,0 +1,47 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+	class TreeNode<T> 
+	{
+	    public T data;
+	    public TreeNode<T> left;
+	    public TreeNode<T> right;
+
+	    TreeNode(T data) 
+	    {
+	        this.data = data;
+	        left = null;
+	        right = null;
+	    }
+	}
+
+************************************************************/
+
+
+public class Solution 
+{
+
+	public static int kthSmallest(TreeNode<Integer> root, int k) 
+	{
+		//  Write your code here.
+       
+        int arr[]=new int[2];
+       arr[0]=k;
+       helper(root,arr);
+        return arr[1];
+        
+	}
+    public static void helper(TreeNode<Integer> root,int[]arr){
+         if(root==null)return;
+      
+        //inOrder traversal of BST is always sorted
+       helper(root.left,arr);
+        arr[0]--;
+        if(arr[0]==0)
+           arr[1]=root.data;
+        helper(root.right,arr);
+       
+    }
+
+}
