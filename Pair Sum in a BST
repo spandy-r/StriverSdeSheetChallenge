@@ -1,0 +1,72 @@
+/*************************************************************
+    
+    Following is the Binary Tree node structure:
+
+    class BinaryTreeNode {
+
+	int data;
+	BinaryTreeNode left;
+	BinaryTreeNode right;
+	
+	BinaryTreeNode(int data) {
+		this.data = data;
+		left = null;
+		right = null;
+	   }
+    }
+
+*************************************************************/
+import java.util.*;
+public class Solution {
+	public static boolean pairSumBst(BinaryTreeNode root, int k) {
+		// Write your code here.
+         BSTiterator a1=new BSTiterator(root,false);
+        BSTiterator a2=new BSTiterator(root,true);
+        int lo=a1.next(),hi=a2.next();
+        while(lo<hi){
+            int sum=lo+hi;
+            
+            if(sum>k){
+                hi=a2.next();
+            }else if(sum<k){
+                lo=a1.next();
+            }else{
+                return true;
+            }
+        }
+        return false;
+	}
+}
+class BSTiterator{
+    boolean reverse;
+    Stack<BinaryTreeNode> st;
+    BSTiterator(BinaryTreeNode root,boolean reverse){
+        st=new Stack<>();
+        this.reverse=reverse;
+        pushAll(root);
+    }
+    void pushAll(BinaryTreeNode root){
+        while(root!=null){
+            st.push(root);
+            if(reverse){
+                root=root.right;
+            }else{
+                root=root.left;
+            }
+        }
+    }
+    int next(){
+        BinaryTreeNode temp=st.pop();
+        if(!reverse)
+            pushAll(temp.right);
+        else
+            pushAll(temp.left);
+        return temp.data;
+    }
+    boolean hasNext(){
+        return !st.isEmpty();
+    }
+    
+    
+}
+
