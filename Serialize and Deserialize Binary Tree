@@ -1,0 +1,75 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> 
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+import java.util.*;
+public class Solution 
+{
+    public static String serializeTree(TreeNode<Integer> root)
+    {
+        //    Write your code here for serialization of the tree.
+       StringBuilder ans=new StringBuilder();
+        Queue<TreeNode<Integer>> q=new LinkedList<>();
+        if(root==null){
+            return "-1";
+        }
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode<Integer> front=q.remove();
+            
+            if(front==null){
+                ans.append("-1 ");
+                continue;
+            }
+            ans.append(front.data+" ");
+            q.add(front.left);
+            q.add(front.right);
+            
+        }
+        return ans.toString();
+        
+    }
+
+    
+    public static TreeNode<Integer> deserializeTree(String str)
+    {
+        //    Write your code here for deserialization of the tree.
+        if(str=="" ||str=="-1")return null;
+        Queue<TreeNode<Integer>> q=new LinkedList<>();
+        String values[]=str.split(" ");
+        TreeNode<Integer> root=new TreeNode<>(Integer.parseInt(values[0]));
+        q.add(root);
+        for(int i=1;i<values.length;i++){
+            TreeNode<Integer> parent=q.remove();
+            if(!values[i].equals("-1")){
+                TreeNode<Integer> left=new TreeNode<>(Integer.parseInt(values[i]));
+                parent.left=left;
+                q.add(left);
+            }
+            
+            if(!values[++i].equals("-1")){
+                TreeNode<Integer> right=new TreeNode<>(Integer.parseInt(values[i]));
+                parent.right=right;
+                q.add(right);
+            }
+        }
+        return root;
+    }
+}
