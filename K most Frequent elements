@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Solution {
+
+	public static int[] KMostFrequent(int n, int k, int[] arr) {
+		// Write your code here.
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i:arr){
+            if(map.get(i)==null)map.put(i,1);
+            else
+                map.put(i,map.get(i)+1);
+        }
+
+        PriorityQueue<Integer> pq=new PriorityQueue<>((a,b)->map.get(b)-map.get(a));
+        for(HashMap.Entry<Integer,Integer> x:map.entrySet()){
+            pq.add(x.getKey());
+//             if(pq.size()>k)pq.poll();
+        }
+        
+       
+        int ans[]=new int[k];
+        for(int i=0;i<k;i++){
+            ans[i]=pq.poll();
+        }
+        return ans;
+	}
+
+}
