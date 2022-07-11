@@ -1,0 +1,45 @@
+
+/*************************************************************
+ class BinaryTreeNode<T> {
+	T data;
+	BinaryTreeNode<T> left;
+	BinaryTreeNode<T> right;
+
+	public BinaryTreeNode(T data) {
+		this.data = data;
+	}
+}
+
+*************************************************************/
+
+import java.util.*;
+public class Solution {
+	
+	public static BinaryTreeNode<Integer> BTtoDLL(BinaryTreeNode<Integer> root) {
+		// Write your code here
+        BinaryTreeNode<Integer> head=null,prev=null;
+        ArrayList<BinaryTreeNode<Integer> >arr=new ArrayList<>();
+        arr.add(head);
+        arr.add(prev);
+        helper(root,arr);
+        return arr.get(0);
+	}
+    public static void helper(BinaryTreeNode<Integer> root,ArrayList<BinaryTreeNode<Integer>>arr ){
+        if(root==null)
+            return;
+       helper(root.left,arr);
+        if(arr.get(1)==null){
+            arr.set(0,root);
+        }else{
+            
+            arr.get(1).right=root;
+            root.left=arr.get(1);
+        }
+        arr.set(1,root);
+        helper(root.right,arr);
+    }
+   
+    
+	
+
+}
