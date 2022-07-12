@@ -1,0 +1,30 @@
+import java.util.*;
+public class Solution {
+    public static void findMedian(int[] arr) {
+        // Write your code here.
+        PriorityQueue<Integer> left=new PriorityQueue<>((a,b)->b-a);
+        PriorityQueue<Integer> right=new PriorityQueue<>();
+   
+        for(int i=0;i<arr.length;i++){
+            if(left.isEmpty() || arr[i]<left.peek()){
+                left.add(arr[i]);
+            }else{
+                right.add(arr[i]);
+            }
+            if(left.size()>right.size()+1){
+                right.add(left.remove());
+            }else if(left.size()<right.size()){
+                left.add(right.remove());
+            }
+            int median;
+            if(left.size()==right.size()){
+                median=(left.peek()+right.peek())/2;
+            }else{
+                median=left.size()>right.size()?left.peek():right.peek();
+            }
+            System.out.print(median+" ");
+        }
+        
+    
+    }
+}
