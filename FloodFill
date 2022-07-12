@@ -1,0 +1,26 @@
+public class Solution
+{
+    public static int[][] floodFill(int[][] image, int x, int y, int newColor)
+    {
+        // Write your code here
+       
+         int old=image[x][y];
+        if(old==newColor)return image;
+       helper(image,x,y,newColor,old);
+        return image;
+    }
+    public static void helper(int[][]image,int x,int y,int nC,int old){
+        if(x<0 || y<0 || x==image.length || y==image[0].length|| image[x][y]!=old)return;
+        
+        
+         image[x][y]=nC;
+        
+        helper(image,x-1,y,nC,old);
+        helper(image,x+1,y,nC,old);
+        helper(image,x,y-1,nC,old);
+        helper(image,x,y+1,nC,old);
+        
+        
+    }
+}
+
