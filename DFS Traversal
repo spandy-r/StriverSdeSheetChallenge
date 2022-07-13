@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+
+public class Solution {
+    public static ArrayList<ArrayList<Integer>> depthFirstSearch(int v, int e, ArrayList<ArrayList<Integer>> edges) {
+        // Write your code here.
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        for(int i=0;i<v;i++)adj.add(new ArrayList<>());
+        
+        for(int i=0;i<e;i++){
+            
+            ArrayList<Integer> temp1=edges.get(i);
+            int x=temp1.get(0);
+            int y=temp1.get(1);
+
+           adj.get(x).add(y);
+           adj.get(y).add(x);
+                
+        }
+        boolean visited[]=new boolean[v];
+        ArrayList<ArrayList<Integer>> res=new ArrayList<>();
+        for(int i=0;i<v;i++){
+            ArrayList<Integer> ans=new ArrayList<>();
+            if(!visited[i]){
+                dfs(adj,i,visited,res,ans);
+                res.add(ans);
+            }
+        }
+        return res;
+    }
+    public static void dfs(ArrayList<ArrayList<Integer>> adj,int sv,boolean[]visited,ArrayList<ArrayList<Integer>> res,ArrayList<Integer> ans){
+        
+        visited[sv]=true;
+        ans.add(sv);
+        for(int i=0;i<adj.get(sv).size();i++){
+            int next=adj.get(sv).get(i);
+          if(!visited[next]){
+        dfs(adj,next,visited,res,ans);
+        }
+        }
+       
+    }
+}
