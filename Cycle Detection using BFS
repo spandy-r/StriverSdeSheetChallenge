@@ -1,0 +1,67 @@
+import java.util.*;
+class Pair{
+    private int key,value;
+    Pair(int key,int value){
+        this.key=key;
+        this.value=value;
+    }
+    int getKey(){
+        return key;
+    }
+    int getValue(){
+        return value;
+    }
+}
+public class Solution {
+    
+    public static String cycleDetection(int[][] edges, int n, int m) {
+        // Write your code here.
+        ArrayList<ArrayList<Integer>>adj=new ArrayList<>();
+        boolean visited[]=new boolean[n+1];
+        for(int i=0;i<=n;i++){
+            adj.add(new ArrayList<Integer>());
+        }
+        for(int i=0;i<m;i++){
+            ArrayList<Integer> temp1=adj.get(edges[i][0]);
+            ArrayList<Integer> temp2=adj.get(edges[i][1]);
+            temp1.add(edges[i][1]);
+            temp2.add(edges[i][0]);
+        }
+        boolean ans=false;
+        for(int i=1;i<=n;i++){
+            if(!visited[i]){
+                Pair p=new Pair(i,-1);
+                ans=cycleBFS(adj,p,visited);
+                   if(ans)return "Yes";
+                        
+            }
+        }
+        
+        
+        
+        return "No";
+    }
+    
+    public static boolean cycleBFS(ArrayList<ArrayList<Integer>>adj,Pair p,boolean visited[]){
+        
+        Queue<Pair> q=new LinkedList<>();
+        q.add(p);
+        
+        while(!q.isEmpty()){
+            Pair top=q.poll();
+            int node=top.getKey();
+            int prev=top.getValue();
+            visited[node]=true;
+            
+            for(int i=0;i<adj.get(node).size();i++){
+                int next=adj.get(node).get(i);
+                if(visited[next] && next!=prev)return true;
+                if(!visited[next])
+                    q.add(new Pair(next,node));
+            }
+        }
+        return false;
+    }
+    
+    
+}
