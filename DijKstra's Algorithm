@@ -1,0 +1,65 @@
+import java.util.*;
+public class Solution {
+	
+	public static ArrayList < Integer > dijkstra(ArrayList< ArrayList < Integer > > vec, int vertices, int edges, int source){
+		// Write your code here.
+        /* x y d ->row=vec.size(),col=3*/
+        int row=vec.size();
+        int col=3;
+        ArrayList<Integer> dist=new ArrayList<>();
+                for(int i=0;i<vertices;i++){
+            dist.add(Integer.MAX_VALUE);
+        }
+        ArrayList<ArrayList<Node>> adj=new ArrayList<>();
+        for(int i=0;i<vertices;i++){
+            adj.add(new ArrayList<>());
+        }
+        
+
+       
+        for(int i=0;i<row;i++){
+            int x=vec.get(i).get(0);
+            int y=vec.get(i).get(1);
+            int d=vec.get(i).get(2);
+           adj.get(x).add(new Node(y,d));
+           adj.get(y).add(new Node(x,d));
+        }
+          dist.set(source,0);
+        distanceCheck(adj,dist,source,vertices);
+        
+       
+        return dist;
+	}
+    public static void distanceCheck( ArrayList<ArrayList<Node>> adj,ArrayList<Integer>dist,int src,int n){
+        
+        PriorityQueue<Node> pq=new PriorityQueue<>(n,new Node());
+        pq.add(new Node(src,0));
+        while(pq.size()>0){
+            Node node=pq.poll();
+            for(Node it: adj.get(node.getV())) {
+                if(dist.get(node.getV()) + it.getD() < dist.get(it.getV())) {
+                    dist.set(it.getV(),dist.get(node.getV()) + it.getD()); 
+                    pq.add(new Node(it.getV(), dist.get(it.getV())));
+                }
+            }
+        }
+    }
+}
+class Node implements Comparator<Node>{
+    private int d;
+    private int v;
+    Node(int v,int d){
+        this.v=v;
+        this.d=d;
+    }
+    Node(){}
+    int getV(){
+        return v;
+    }
+    int getD(){
+        return d;
+    }
+    public int compare(Node node1,Node node2){
+        return node1.getD()-node2.getD();
+    }
+}
