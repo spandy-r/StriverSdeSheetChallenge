@@ -1,0 +1,115 @@
+import java.util.*;
+public class Solution {
+    public static int kruskalMST(int n, int m, ArrayList<ArrayList<Integer>> graph) {
+        // Write your code here.
+        ArrayList<Node>arr=new ArrayList<>();
+        for(int i=0;i<graph.size();i++){
+            int u=graph.get(i).get(0);
+            int v=graph.get(i).get(1);
+            int wt=graph.get(i).get(2);
+            arr.add(new Node(wt,u,v));
+        }
+        Collections.sort(arr,(a,b)->a.wt-b.wt);
+        int parent[]=new int[n+1];
+        int rank[]=new int[n+1];
+        for(int i=1;i<=n;i++){
+            parent[i]=i;
+            rank[i]=0;
+        }
+        int mstCost=0;
+        ArrayList<Node> mst=new ArrayList<>();
+        for(Node it:arr){
+            if(getParent(it.u,parent)!=getParent(it.v,parent)){
+                mstCost+=it.wt;
+                mst.add(it);
+                union(it.u,it.v,parent,rank);
+            }
+        }
+        return mstCost;
+        
+    }
+   public static int getParent(int node,int parent[]){
+       if(node==parent[node])
+        return node;
+       return parent[node]=getParent(parent[node],parent);
+       }
+    public static void union(int u,int v,int[]parent,int rank[]){
+        u=getParent(u,parent);
+        v=getParent(v,parent);
+        if(rank[u]<rank[v]){
+            parent[u]=v;
+        }else if(rank[v]<rank[u]){
+            parent[v]=u;
+        }else{
+            parent[v]=u;
+            rank[u]++;
+        }
+    }
+    
+}
+
+class Node{
+    int wt,u,v;
+    Node(int wt,int u,int v){
+        this.v=v;
+        this.u=u;
+        this.wt=wt;
+    }
+}import java.util.*;
+public class Solution {
+    public static int kruskalMST(int n, int m, ArrayList<ArrayList<Integer>> graph) {
+        // Write your code here.
+        ArrayList<Node>arr=new ArrayList<>();
+        for(int i=0;i<graph.size();i++){
+            int u=graph.get(i).get(0);
+            int v=graph.get(i).get(1);
+            int wt=graph.get(i).get(2);
+            arr.add(new Node(wt,u,v));
+        }
+        Collections.sort(arr,(a,b)->a.wt-b.wt);
+        int parent[]=new int[n+1];
+        int rank[]=new int[n+1];
+        for(int i=1;i<=n;i++){
+            parent[i]=i;
+            rank[i]=0;
+        }
+        int mstCost=0;
+        ArrayList<Node> mst=new ArrayList<>();
+        for(Node it:arr){
+            if(getParent(it.u,parent)!=getParent(it.v,parent)){
+                mstCost+=it.wt;
+                mst.add(it);
+                union(it.u,it.v,parent,rank);
+            }
+        }
+        return mstCost;
+        
+    }
+   public static int getParent(int node,int parent[]){
+       if(node==parent[node])
+        return node;
+       return parent[node]=getParent(parent[node],parent);
+       }
+    public static void union(int u,int v,int[]parent,int rank[]){
+        u=getParent(u,parent);
+        v=getParent(v,parent);
+        if(rank[u]<rank[v]){
+            parent[u]=v;
+        }else if(rank[v]<rank[u]){
+            parent[v]=u;
+        }else{
+            parent[v]=u;
+            rank[u]++;
+        }
+    }
+    
+}
+
+class Node{
+    int wt,u,v;
+    Node(int wt,int u,int v){
+        this.v=v;
+        this.u=u;
+        this.wt=wt;
+    }
+}
