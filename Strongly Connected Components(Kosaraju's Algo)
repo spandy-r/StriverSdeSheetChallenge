@@ -1,0 +1,60 @@
+import java.util.*;
+public class Solution {
+
+    public static List<List<Integer>> stronglyConnectedComponents(int n, int[][] edges) {
+        // Write your code here
+        ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<edges.length;i++){
+            adj.get(edges[i][0]).add(edges[i][1]);
+        }
+        Stack<Integer> s=new Stack<>();
+        boolean visited[]=new boolean[n];
+        for(int i=0;i<n;i++){
+            if(!visited[i])
+                topoDfs(adj,i,s,visited);
+        }
+        ArrayList<ArrayList<Integer>> transpose=new ArrayList<>();
+        for(int i=0;i<n;i++){
+           transpose.add(new ArrayList<>());
+        }
+        for(int i=0;i<edges.length;i++){
+            transpose.get(edges[i][1]).add(edges[i][0]);
+        }
+        visited=new boolean[n];
+        List<List<Integer>> res=new ArrayList<>();
+        while(!s.isEmpty()){
+            int x=s.pop();
+            if(!visited[x]){
+                List<Integer> arr=new ArrayList<>();
+                revDFS(x,transpose,visited,arr);
+                res.add(arr);
+            }
+        }
+        return res;
+
+    }
+    public static void revDFS(int x,ArrayList<ArrayList<Integer>> transpose,boolean[]visited,List<Integer> arr){
+        visited[x]=true;
+        arr.add(x);
+        for(int i=0;i<transpose.get(x).size();i++){
+            int next=transpose.get(x).get(i);
+            if(!visited[next]){
+                revDFS(next,transpose,visited,arr);
+            }
+        }
+    }
+    public static void topoDfs(ArrayList<ArrayList<Integer>> adj,int sv,Stack<Integer> s,boolean visited[]){
+        visited[sv]=true;
+        for(int i=0;i<adj.get(sv).size();i++){
+            int next=adj.get(sv).get(i);
+            if(!visited[next]){
+                topoDfs(adj,next,s,visited);
+            }
+        }
+        s.push(sv);
+        
+    }
+}
